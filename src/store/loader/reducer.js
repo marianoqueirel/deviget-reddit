@@ -1,7 +1,9 @@
 import { SET_LOADER } from "./actionTypes";
 
-export default (state = false, { actionType, payload }) => {
-  switch (SET_LOADER) {
+export default (state = true, { type, payload }) => {
+  switch (type) {
+    case SET_LOADER:
+      return payload.loading;
     default:
       return state;
   }

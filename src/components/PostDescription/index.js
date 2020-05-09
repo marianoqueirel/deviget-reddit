@@ -1,3 +1,8 @@
+import { connect } from "react-redux";
 import PostDescription from "./PostDescription";
 
-export default PostDescription;
+const mapStateToProps = () => ({
+  post: {},
+});
+
+export default connect(mapStateToProps)(PostDescription);

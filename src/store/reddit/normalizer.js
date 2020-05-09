@@ -7,6 +7,14 @@ export default (data) => {
       data: { author, id, num_comments, thumbnail, created_utc, title },
     } = item;
 
-    return { author, id, num_comments, thumbnail, created_utc, title };
+    return {
+      author,
+      id,
+      num_comments,
+      thumbnail,
+      created_utc,
+      title,
+      read: false,
+    };
   });
 };

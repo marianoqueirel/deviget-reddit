@@ -1,3 +1,8 @@
+import { connect } from "react-redux";
 import PostList from "./PostList";
 
-export default PostList;
+const mapStateToProps = () => ({
+  posts: [],
+});
+
+export default connect(mapStateToProps)(PostList);

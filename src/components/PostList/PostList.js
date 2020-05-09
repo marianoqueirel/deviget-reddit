@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
-const PostList = () => {
+const PostList = ({ posts }) => {
   const [drawer, setDrawer] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (
