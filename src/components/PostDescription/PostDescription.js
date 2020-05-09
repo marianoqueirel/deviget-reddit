@@ -3,15 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 const PostDescription = ({ post }) => {
-  const {
-    author,
-    id,
-    num_comments,
-    thumbnail,
-    created_utc,
-    title,
-    read,
-  } = post;
+  const postSelected = Object.entries(post).length;
 
   return (
     <Grid
@@ -21,7 +13,11 @@ const PostDescription = ({ post }) => {
       lg={9}
       style={{ backgroundColor: "red", justifyContent: "center" }}
     >
-      <Typography variant="h4">Post Description</Typography>
+      {postSelected ? (
+        <Typography variant="h4">Post Description Selected</Typography>
+      ) : (
+        <Typography variant="h4">Post Description not yer available</Typography>
+      )}
     </Grid>
   );
 };

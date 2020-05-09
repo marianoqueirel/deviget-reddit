@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import PostDescription from "./PostDescription";
+import { getSelectedPost } from "../../store/reddit/selector";
 
-const mapStateToProps = () => ({
-  post: {},
+const mapStateToProps = (state) => ({
+  post: getSelectedPost(state),
 });
 
 export default connect(mapStateToProps)(PostDescription);

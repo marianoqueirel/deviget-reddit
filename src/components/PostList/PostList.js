@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, loading }) => {
   const [drawer, setDrawer] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (
@@ -28,7 +28,6 @@ const PostList = ({ posts }) => {
       <div style={{ height: "7%", textAlign: "center" }}>Footer</div>
     </Fragment>
   );
-
   return (
     <Fragment>
       <Hidden mdUp>
@@ -38,7 +37,7 @@ const PostList = ({ posts }) => {
           onOpen={toggleDrawer(true)}
         >
           <div style={{ width: "300px", height: "100%" }}>
-            {renderRedditList()}
+            {loading ? <h1>Loading</h1> : renderRedditList()}
           </div>
         </SwipeableDrawer>
       </Hidden>
@@ -51,7 +50,7 @@ const PostList = ({ posts }) => {
             height: "100%",
           }}
         >
-          {renderRedditList()}
+          {loading ? <h1>Loading</h1> : renderRedditList()}
         </Grid>
       </Hidden>
     </Fragment>
