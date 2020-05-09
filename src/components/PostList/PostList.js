@@ -23,11 +23,16 @@ const PostList = ({ posts, loading }) => {
       <div
         style={{ height: "84%", backgroundColor: "blue", overflowY: "auto" }}
       >
-        <Grid xs={12}>Post List</Grid>
+        <Grid xs={12}>
+          {posts.map((post) => {
+            return <h1>Post</h1>;
+          })}
+        </Grid>
       </div>
       <div style={{ height: "7%", textAlign: "center" }}>Footer</div>
     </Fragment>
   );
+
   return (
     <Fragment>
       <Hidden mdUp>

@@ -2,6 +2,7 @@ import { call, put } from "redux-saga/effects";
 import services from "../../services/services";
 import * as actions from "./actions";
 import normalizePostsData from "./normalizer";
+import { setLoader } from "../loader/actions";
 
 function* getAccessTokenWorker() {
   const { response, error } = yield call(services.getAccessToken);
@@ -32,6 +33,7 @@ function* getTopPostsFlow() {
 
   const posts = yield call(getTopPostsWorker, accessToken);
   yield put(actions.setPosts({ posts }));
+  yield put(setLoader(false));
 }
 
 export default function* redditSaga() {

@@ -16,7 +16,7 @@ const PostDescription = ({ post }) => {
       {postSelected ? (
         <Typography variant="h4">Post Description Selected</Typography>
       ) : (
-        <Typography variant="h4">Post Description not yer available</Typography>
+        <Typography variant="h4">Post Description not yet available</Typography>
       )}
     </Grid>
   );
