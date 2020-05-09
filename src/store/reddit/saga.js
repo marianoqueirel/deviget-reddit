@@ -1,5 +1,7 @@
-import { call } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import services from "../../services/services";
+import * as actions from "./actions";
+import normalizePostsData from "./normalizer";
 
 function* getAccessTokenWorker() {
   const { response, error } = yield call(services.getAccessToken);
@@ -13,7 +15,7 @@ function* getAccessTokenWorker() {
 function* getTopPostsWorker(accessToken) {
   const { response, error } = yield call(services.getTopPosts, accessToken);
   if (response) {
-    return response.data.data.children;
+    return normalizePostsData(response.data);
   } else {
     // Handle error
     // if the error is related to expired access token to get a new one
@@ -29,7 +31,7 @@ function* getTopPostsFlow() {
   }
 
   const posts = yield call(getTopPostsWorker, accessToken);
-  console.log(posts);
+  yield put(actions.setPosts({ posts }));
 }
 
 export default function* redditSaga() {
