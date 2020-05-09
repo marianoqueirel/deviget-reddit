@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import PostListItem from "./PostListItem";
 
 const PostList = ({ posts, loading }) => {
   const [drawer, setDrawer] = useState(false);
@@ -21,11 +22,11 @@ const PostList = ({ posts, loading }) => {
     <Fragment>
       <div style={{ height: "7%", textAlign: "center" }}>Header</div>
       <div
-        style={{ height: "84%", backgroundColor: "blue", overflowY: "auto" }}
+        style={{ height: "86%", backgroundColor: "blue", overflowY: "auto" }}
       >
         <Grid xs={12}>
           {posts.map((post) => {
-            return <h1>Post</h1>;
+            return <PostListItem />;
           })}
         </Grid>
       </div>
