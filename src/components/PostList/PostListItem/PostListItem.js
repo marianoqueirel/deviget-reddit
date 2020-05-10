@@ -10,7 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../assets/images/reddit.png";
 
-const PostListItem = ({ post, dismissPost, selectPost }) => {
+const PostListItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const [read, setRead] = useState(false);
   const { author, id, num_comments, thumbnail, created_utc, title } = post;
   const image = thumbnail.substring(0, 4) === "http" ? thumbnail : redditImage;
@@ -83,6 +83,7 @@ const PostListItem = ({ post, dismissPost, selectPost }) => {
         onClick={() => {
           selectPost({ id });
           setRead(true);
+          onSelect(false);
         }}
         style={{ height: "100%", cursor: "pointer" }}
       >

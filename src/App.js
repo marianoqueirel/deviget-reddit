@@ -18,20 +18,6 @@ const App = () => {
   return (
     <Grid container className={classes.container}>
       <PostList />
-      <Hidden mdUp>
-        <Grid
-          item
-          xs={1}
-          style={{
-            height: "60px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <MenuIcon />
-        </Grid>
-      </Hidden>
       <Grid
         container
         xs={11}

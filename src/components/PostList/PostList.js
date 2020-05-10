@@ -5,6 +5,7 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
+import MenuIcon from "@material-ui/icons/Menu";
 
 import PostListItem from "./PostListItem";
 
@@ -37,7 +38,7 @@ const PostList = ({ posts, loading, dismissAllPosts }) => {
       <div style={{ height: "86%", overflowY: "auto" }}>
         <Grid xs={12}>
           {posts.map((post) => {
-            return <PostListItem post={post} />;
+            return <PostListItem post={post} onSelect={setDrawer} />;
           })}
         </Grid>
       </div>
@@ -71,6 +72,23 @@ const PostList = ({ posts, loading, dismissAllPosts }) => {
             {loading ? <h1>Loading</h1> : renderRedditList()}
           </div>
         </SwipeableDrawer>
+      </Hidden>
+      <Hidden mdUp>
+        <Grid
+          item
+          xs={1}
+          style={{
+            height: "60px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MenuIcon
+            style={{ cursor: "pointer" }}
+            onClick={() => setDrawer(true)}
+          />
+        </Grid>
       </Hidden>
       <Hidden smDown>
         <Grid
