@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -11,15 +11,8 @@ import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../assets/images/reddit.png";
 
 const PostListItem = ({ post, dismissPost, selectPost }) => {
-  const {
-    author,
-    id,
-    num_comments,
-    thumbnail,
-    created_utc,
-    title,
-    read,
-  } = post;
+  const [read, setRead] = useState(false);
+  const { author, id, num_comments, thumbnail, created_utc, title } = post;
   const image = thumbnail.substring(0, 4) === "http" ? thumbnail : redditImage;
 
   const renderHeader = () => (
@@ -33,7 +26,7 @@ const PostListItem = ({ post, dismissPost, selectPost }) => {
       <div style={{ display: "flex" }}>
         <Avatar
           style={{
-            backgroundColor: "red",
+            backgroundColor: read ? "grey" : "blue",
             width: "1rem",
             height: "1rem",
             marginRight: "1rem",
@@ -54,7 +47,7 @@ const PostListItem = ({ post, dismissPost, selectPost }) => {
   );
 
   const renderBody = () => (
-    <Grid container onClick={() => selectPost({ id })}>
+    <Grid container>
       <img alt="text " style={{ width: "100%", height: "10rem" }} src={image} />
       <Typography noWrap variant="h6" color="textSecondary" component="p">
         {title}
@@ -86,8 +79,17 @@ const PostListItem = ({ post, dismissPost, selectPost }) => {
 
   return (
     <Card style={{ padding: "20px" }}>
-      {renderHeader()}
-      {renderBody()}
+      <div
+        onClick={() => {
+          selectPost({ id });
+          setRead(true);
+        }}
+        style={{ height: "100%", cursor: "pointer" }}
+      >
+        {renderHeader()}
+        {renderBody()}
+      </div>
+
       {renderFooter()}
     </Card>
   );

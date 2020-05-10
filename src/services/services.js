@@ -14,7 +14,7 @@ export default {
           username: CLIENT_ID,
           password: CLIENT_SECRET,
         },
-        timeout: 2000,
+        timeout: 4000,
       })
       .then((response) => ({ response }))
       .catch((error) => ({ error }));
@@ -26,7 +26,7 @@ export default {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        timeout: 2000,
+        timeout: 4000,
       })
       .then((response) => ({ response }))
       .catch((error) => ({ error }));

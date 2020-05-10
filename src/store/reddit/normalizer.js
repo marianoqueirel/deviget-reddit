@@ -14,7 +14,6 @@ export default (data) => {
       thumbnail,
       created_utc,
       title,
-      read: false,
     };
   });
 };
