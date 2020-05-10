@@ -18,8 +18,10 @@ function* getTopPostsWorker(accessToken) {
   if (response) {
     return normalizePostsData(response.data);
   } else {
-    // Handle error
-    // if the error is related to expired access token to get a new one
+    if (error.response.status === 401) {
+      localStorage.removeItem("REDDIT_ACCESS_TOKEN");
+      yield call(getTopPostsFlow);
+    }
   }
 }
 
@@ -32,8 +34,10 @@ function* getTopPostsFlow() {
   }
 
   const posts = yield call(getTopPostsWorker, accessToken);
-  yield put(actions.setPosts({ posts }));
-  yield put(setLoader(false));
+  if (posts) {
+    yield put(actions.setPosts({ posts }));
+    yield put(setLoader(false));
+  }
 }
 
 export default function* redditSaga() {
