@@ -10,7 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../assets/images/reddit.png";
 
-const PostListItem = ({ post }) => {
+const PostListItem = ({ post, dismissPost }) => {
   const {
     author,
     id,
@@ -65,16 +65,13 @@ const PostListItem = ({ post }) => {
 
   const renderFooter = () => (
     <CardActions disableSpacing style={{ justifyContent: "space-between" }}>
-      <div onClick={() => onDismiss(post.id)}>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<DeleteIcon />}
-        >
-          Dismiss Post
-        </Button>
-      </div>
-
+      <Button
+        variant="contained"
+        color="secondary"
+        startIcon={<DeleteIcon />}
+        onClick={() => dismissPost({ id })}
+        children={"Dismiss Post"}
+      />
       <Badge
         color="secondary"
         anchorOrigin={{

@@ -8,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import PostListItem from "./PostListItem";
 
-const PostList = ({ posts, loading }) => {
+const PostList = ({ posts, loading, dismissAllPosts }) => {
   const [drawer, setDrawer] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (
@@ -53,6 +53,7 @@ const PostList = ({ posts, loading }) => {
           color="secondary"
           startIcon={<DeleteIcon />}
           children={"Dismiss All"}
+          onClick={dismissAllPosts}
         />
       </div>
     </Fragment>
