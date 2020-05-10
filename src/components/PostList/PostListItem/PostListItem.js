@@ -10,7 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../assets/images/reddit.png";
 
-const PostListItem = ({ post, dismissPost }) => {
+const PostListItem = ({ post, dismissPost, selectPost }) => {
   const {
     author,
     id,
@@ -20,7 +20,6 @@ const PostListItem = ({ post, dismissPost }) => {
     title,
     read,
   } = post;
-  const onDismiss = () => null;
   const image = thumbnail.substring(0, 4) === "http" ? thumbnail : redditImage;
 
   const renderHeader = () => (
@@ -55,7 +54,7 @@ const PostListItem = ({ post, dismissPost }) => {
   );
 
   const renderBody = () => (
-    <Grid container>
+    <Grid container onClick={() => selectPost({ id })}>
       <img alt="text " style={{ width: "100%", height: "10rem" }} src={image} />
       <Typography noWrap variant="h6" color="textSecondary" component="p">
         {title}

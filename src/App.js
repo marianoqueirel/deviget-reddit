@@ -1,8 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import PostDescription from "./components/PostDescription";
 import PostList from "./components/PostList";
 import { makeStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles({
   container: {
@@ -16,7 +18,29 @@ const App = () => {
   return (
     <Grid container className={classes.container}>
       <PostList />
-      <PostDescription />
+      <Hidden mdUp>
+        <Grid
+          item
+          xs={1}
+          style={{
+            height: "60px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MenuIcon />
+        </Grid>
+      </Hidden>
+      <Grid
+        container
+        xs={11}
+        md={8}
+        lg={9}
+        style={{ justifyContent: "center" }}
+      >
+        <PostDescription />
+      </Grid>
     </Grid>
   );
 };

@@ -5,6 +5,11 @@ export const setPosts = ({ posts }) => ({
   payload: { posts },
 });
 
+export const selectPost = ({ id }) => ({
+  type: actionTypes.SELECT_POST,
+  payload: { id },
+});
+
 export const dismissPost = ({ id }) => ({
   type: actionTypes.DISMISS_POST,
   payload: { id },
