@@ -61,6 +61,17 @@ const PostList = ({ posts, loading, dismissAllPosts }) => {
 
   return (
     <Fragment>
+      <Hidden mdUp>
+        <SwipeableDrawer
+          open={drawer}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          <div style={{ width: "300px", height: "100%" }}>
+            {loading ? <h1>Loading</h1> : renderRedditList()}
+          </div>
+        </SwipeableDrawer>
+      </Hidden>
       <Hidden smDown>
         <Grid
           item
