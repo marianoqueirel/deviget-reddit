@@ -2,6 +2,10 @@ import React, { Fragment, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+
 import PostListItem from "./PostListItem";
 
 const PostList = ({ posts, loading }) => {
@@ -20,17 +24,37 @@ const PostList = ({ posts, loading }) => {
 
   const renderRedditList = () => (
     <Fragment>
-      <div style={{ height: "7%", textAlign: "center" }}>Header</div>
       <div
-        style={{ height: "86%", backgroundColor: "blue", overflowY: "auto" }}
+        style={{
+          height: "7%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
+        <Typography align="center">Reddit</Typography>
+      </div>
+      <div style={{ height: "86%", overflowY: "auto" }}>
         <Grid xs={12}>
           {posts.map((post) => {
-            return <PostListItem />;
+            return <PostListItem post={post} />;
           })}
         </Grid>
       </div>
-      <div style={{ height: "7%", textAlign: "center" }}>Footer</div>
+      <div
+        style={{
+          height: "7%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          color="secondary"
+          startIcon={<DeleteIcon />}
+          children={"Dismiss All"}
+        />
+      </div>
     </Fragment>
   );
 
@@ -52,7 +76,6 @@ const PostList = ({ posts, loading }) => {
           md={4}
           lg={3}
           style={{
-            backgroundColor: "green",
             height: "100%",
           }}
         >
