@@ -1,1 +1,3 @@
-export const SET_LOADER = "SET_LOADER";
+const domain = "loader";
+
+export const SET_LOADER = `${domain}/SET_LOADER`;
