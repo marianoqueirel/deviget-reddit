@@ -1,12 +1,22 @@
 import { connect } from "react-redux";
 import PostList from "./PostList";
-import { dismissAllPosts } from "../../../store/reddit/actions";
-import { getPosts } from "../../../store/reddit/selector";
+import {
+  dismissAllPosts,
+  undoDismissAllPosts,
+} from "../../../store/reddit/actions";
+import {
+  getPosts,
+  isUndoDismissAllPosts,
+} from "../../../store/reddit/selector";
 import { isLoading } from "../../../store/loader/selector";
 
 const mapStateToProps = (state) => ({
   posts: getPosts(state),
   loading: isLoading(state),
+  showUndoDismissAllPosts: isUndoDismissAllPosts(state),
 });
 
-export default connect(mapStateToProps, { dismissAllPosts })(PostList);
+export default connect(mapStateToProps, {
+  dismissAllPosts,
+  undoDismissAllPosts,
+})(PostList);

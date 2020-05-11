@@ -8,3 +8,8 @@ export const getSelectedPost = createSelector(
   getReddit,
   (reddit) => reddit.selected
 );
+
+export const isUndoDismissAllPosts = createSelector(
+  getReddit,
+  (reddit) => reddit.showUndoDismissAllPosts
+);

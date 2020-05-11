@@ -28,7 +28,7 @@ const LeftPanel = () => {
           onOpen={toggleDrawer(true)}
         >
           <div style={{ width: "300px", height: "100%" }}>
-            <PostList />
+            <PostList onSelectPost={setDrawer} />
           </div>
         </SwipeableDrawer>
       </Hidden>

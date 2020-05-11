@@ -8,8 +8,19 @@ http://bob.xxxx
 
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
 - I've used two different ways to manage async API calls
+
   - Catching the error on the proper requests and returns mapped objects
   - try / catch block to catch the error just to different way to manage this flows.
+
+  ## Tech debts
+
+- Add loader component
+- Move animation of single post inside the component and add another for the whole lists
+- Add unit testing
+- undo / restoring dismissed single posts.
+- SwipeableDrawer is being mounted / unmounted everytime, we can avoid that behavior to save performance and not to lose the scroll position.
+- Error handling
+- Make n attempts on API request before throw an error.
 
 ## Tech used
 

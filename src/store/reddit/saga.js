@@ -1,6 +1,17 @@
-import { call, put } from "redux-saga/effects";
+import {
+  all,
+  call,
+  put,
+  take,
+  takeLatest,
+  select,
+  delay,
+  race,
+} from "redux-saga/effects";
 import services from "../../services/services";
 import * as actions from "./actions";
+import { getPosts } from "./selector";
+import { DISMISS_ALL_POSTS, UNDO_DISMISS_ALL_POSTS } from "./actionTypes";
 import normalizePostsData from "./normalizer";
 import { setLoader } from "../loader/actions";
 
@@ -48,6 +59,27 @@ function* getTopPostsFlow() {
   }
 }
 
+function* dismissAllPostsFlow() {
+  const currentPosts = yield select(getPosts);
+
+  yield put(actions.setDismissAllPosts());
+  yield put(actions.showUndoDismissAllPosts({ show: true }));
+
+  const { undo } = yield race({
+    undo: take(UNDO_DISMISS_ALL_POSTS),
+    dismiss: delay(10000),
+  });
+
+  yield put(actions.showUndoDismissAllPosts({ show: false }));
+
+  if (undo) {
+    yield put(actions.setPosts({ posts: currentPosts }));
+  }
+}
+
 export default function* redditSaga() {
-  yield call(getTopPostsFlow);
+  yield all([
+    getTopPostsFlow(),
+    yield takeLatest(DISMISS_ALL_POSTS, dismissAllPostsFlow),
+  ]);
 }

@@ -3,6 +3,7 @@ import * as actionTypes from "./actionTypes";
 const initialState = {
   posts: [],
   selected: {},
+  showUndoDismissAllPosts: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -18,12 +19,24 @@ export default (state = initialState, { type, payload }) => {
           : [...posts];
       return { ...state, posts: filteredPosts };
     case actionTypes.SELECT_POST:
+      const i = state.posts.findIndex((post) => post.id === payload.id);
+      const updatedPosts =
+        i > -1
+          ? [
+              ...state.posts.slice(0, i),
+              { ...state.posts[i], read: true },
+              ...state.posts.slice(i + 1, state.posts.length),
+            ]
+          : [...state.posts];
+
       const postSelected = {
         ...state.posts.find((post) => post.id === payload.id),
       };
-      return { ...state, selected: postSelected };
-    case actionTypes.DISMISS_ALL_POSTS:
+      return { ...state, posts: updatedPosts, selected: postSelected };
+    case actionTypes.SET_DISMISS_ALL_POSTS:
       return { ...initialState };
+    case actionTypes.SHOW_UNDO_DISMISS_ALL_POSTS:
+      return { ...state, showUndoDismissAllPosts: payload.show };
     default:
       return state;
   }

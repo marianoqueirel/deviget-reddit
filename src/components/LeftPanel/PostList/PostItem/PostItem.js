@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -11,8 +11,15 @@ import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../../assets/images/reddit.png";
 
 const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
-  const [read, setRead] = useState(false);
-  const { author, id, num_comments, thumbnail, created_utc, title } = post;
+  const {
+    author,
+    id,
+    num_comments,
+    thumbnail,
+    created_utc,
+    title,
+    read,
+  } = post;
   const image = thumbnail.substring(0, 4) === "http" ? thumbnail : redditImage;
 
   const renderHeader = () => (
@@ -82,7 +89,6 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
       <div
         onClick={() => {
           selectPost({ id });
-          setRead(true);
           onSelect(false);
         }}
         style={{ height: "100%", cursor: "pointer" }}
