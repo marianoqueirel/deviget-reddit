@@ -5,7 +5,7 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import PostList from "./PostList";
 
-const LeftPanel = ({ loading }) => {
+const LeftPanel = () => {
   const [drawer, setDrawer] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (
@@ -28,7 +28,7 @@ const LeftPanel = ({ loading }) => {
           onOpen={toggleDrawer(true)}
         >
           <div style={{ width: "300px", height: "100%" }}>
-            {loading ? <h1>Loading</h1> : <PostList />}
+            <PostList />
           </div>
         </SwipeableDrawer>
       </Hidden>
@@ -58,7 +58,7 @@ const LeftPanel = ({ loading }) => {
             height: "100%",
           }}
         >
-          {loading ? <h1>Loading</h1> : <PostList onSelectPost={setDrawer} />}
+          <PostList onSelectPost={setDrawer} />
         </Grid>
       </Hidden>
     </Fragment>
