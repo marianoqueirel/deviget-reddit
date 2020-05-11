@@ -19,9 +19,11 @@ function* getTopPostsWorker(accessToken) {
     return normalizePostsData(response.data);
   } else {
     if (error.response.status === 401) {
+      // When the token is expired or not valid anymore we receives this status code, we can improve this flow.. but it works for now.
       localStorage.removeItem("REDDIT_ACCESS_TOKEN");
       yield call(getTopPostsFlow);
     }
+    //Handle Errors
   }
 }
 
@@ -34,6 +36,7 @@ function* getTopPostsFlow() {
   }
 
   const posts = yield call(getTopPostsWorker, accessToken);
+
   if (posts) {
     yield put(actions.setPosts({ posts }));
     yield put(setLoader(false));
