@@ -8,22 +8,27 @@ function* getAccessTokenWorker() {
   const { response, error } = yield call(services.getAccessToken);
   if (response) {
     return response.data && response.data.access_token;
-  } else {
+  } else if (error) {
     // Handle error
   }
 }
 
 function* getTopPostsWorker(accessToken) {
-  const { response, error } = yield call(services.getTopPosts, accessToken);
-  if (response) {
+  try {
+    const response = yield call(services.getTopPosts, accessToken);
+
     return normalizePostsData(response.data);
-  } else {
-    if (error.response.status === 401) {
-      // When the token is expired or not valid anymore we receives this status code, we can improve this flow.. but it works for now.
-      localStorage.removeItem("REDDIT_ACCESS_TOKEN");
-      yield call(getTopPostsFlow);
+  } catch (error) {
+    if (error) {
+      const {
+        response: { status },
+      } = error;
+
+      if (status === 401) {
+        localStorage.removeItem("REDDIT_ACCESS_TOKEN");
+        yield call(getTopPostsFlow);
+      }
     }
-    //Handle Errors
   }
 }
 

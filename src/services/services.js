@@ -28,7 +28,6 @@ export default {
         },
         timeout: 4000,
       })
-      .then((response) => ({ response }))
-      .catch((error) => ({ error }));
+      .then((response) => response);
   },
 };

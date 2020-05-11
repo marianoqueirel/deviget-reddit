@@ -1,5 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## PROD URL
+
+http://bob.xxxx
+
+## Tech notes
+
+- The APP starts the sagas automatically without triggering the initial flow from component effects.
+- I've used two different ways to manage async API calls
+  - Catching the error on the proper requests and returns mapped objects
+  - try / catch block to catch the error just to different way to manage this flows.
+
+## Tech used
+
+- react
+- redux
+- redux-devtools
+- redux-saga
+- material-ui
+- axios
+- react-spring
+- reselect
+
 ## Available Scripts
 
 In the project directory, you can run:
