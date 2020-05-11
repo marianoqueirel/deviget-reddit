@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import PostDescription from "./components/PostDescription";
-import PostList from "./components/PostList";
+import LeftPanel from "./components/LeftPanel";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <Grid container className={classes.container}>
-      <PostList />
+      <LeftPanel />
       <Grid item xs={11} md={8} lg={9} style={{ justifyContent: "center" }}>
         <PostDescription />
       </Grid>

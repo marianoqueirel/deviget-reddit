@@ -8,7 +8,7 @@ import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
-import redditImage from "../../../assets/images/reddit.png";
+import redditImage from "../../../../assets/images/reddit.png";
 
 const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const [read, setRead] = useState(false);
