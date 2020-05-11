@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
+import Box from "@material-ui/core/Box";
+
 import redditImage from "../../assets/images/reddit.png";
 
 const PostDescription = ({ post }) => {
@@ -27,13 +27,13 @@ const PostDescription = ({ post }) => {
   };
 
   return (
-    <Grid item xs={12} style={{ padding: "2%" }}>
+    <Box style={{ width: "100%", padding: "2%" }}>
       {postSelected ? (
         renderPostContent()
       ) : (
         <Typography variant="h4">Post Description not yet available</Typography>
       )}
-    </Grid>
+    </Box>
   );
 };
 

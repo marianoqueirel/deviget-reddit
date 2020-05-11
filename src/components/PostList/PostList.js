@@ -36,9 +36,11 @@ const PostList = ({ posts, loading, dismissAllPosts }) => {
         <Typography align="center">Reddit</Typography>
       </div>
       <div style={{ height: "86%", overflowY: "auto" }}>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           {posts.map((post) => {
-            return <PostListItem post={post} onSelect={setDrawer} />;
+            return (
+              <PostListItem post={post} onSelect={setDrawer} key={post.id} />
+            );
           })}
         </Grid>
       </div>
