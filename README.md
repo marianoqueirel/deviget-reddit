@@ -1,25 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Reddit App !
 
-## PROD URL
+## URL
 
-http://bob.xxxx
+[GAME URL](https://mariano-deviget-reddit.herokuapp.com)
 
 ## Tech notes
 
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
-- I've used two different ways to manage async API calls
-  - Catching the error on the proper requests and returns mapped objects
-  - try / catch block to catch the error just to different way to manage this flows.
-- The apps allows us to restore dismissed post list for 5 seconds, whit could be available for more time using state preservation.
+- I've used two different ways to manage async API calls just to different way to manage this flows.
+  - Catching the error on the proper requests service and returns mapped objects.
+  - try / catch block on the sagas generator.
+- The apps allows us for 5 seconds from we pressed on "Dismiss All Posts" to restore them. I used redux-saga solution but it could be achieve using store for preservation.
 
 ## Tech debts and TODOs
 
-- Use Context to avoid prop drilling for swipeable side functionality
+- Reuse Sagas to get posts and next page posts instead of repeat code.
+- We could abstract into one single method the axios method an reuse it on all the calls
+- SwipeableDrawer is being mounted / unmounted every time we trigger it, we can could avoid behavior to improve performance and to not lose the scroll position.
+- Use Context to avoid prop drilling for swipeable side bar functionality
 - Add loader component
-- Move animation of single post inside the component and add another for the whole lists
+- Animation when dismiss all posts
 - Add unit testing
-- undo / restoring dismissed single posts.
-- SwipeableDrawer is being mounted / unmounted everytime, we can avoid that behavior to save performance and not to lose the scroll position.
 - Error handling
 - Make n attempts on API request before throw an error.
 

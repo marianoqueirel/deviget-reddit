@@ -25,16 +25,27 @@ const LeftPanelContent = ({
         <Typography align="center">Reddit</Typography>
       </div>
       {loading ? (
-        <div>Loading</div>
+        <div>Loading...</div>
       ) : (
         <Fragment>
           <div style={{ height: "86%", overflowY: "auto" }}>
             {posts.length < 1 && showUndoDismissAllPosts ? (
-              <Button
-                color="secondary"
-                children={"Undo"}
-                onClick={undoDismissAllPosts}
-              />
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  style={{ width: "100%" }}
+                  color="secondary"
+                  children={"5 Seconds to Undo"}
+                  onClick={undoDismissAllPosts}
+                />
+              </div>
             ) : (
               <PostList posts={posts} onSelectPost={onSelectPost} />
             )}

@@ -9,6 +9,9 @@ import Avatar from "@material-ui/core/Avatar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../../assets/images/reddit.png";
+import BackspaceIcon from "@material-ui/icons/Backspace";
+import CloseIcon from "@material-ui/icons/Close";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const {
@@ -65,7 +68,6 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const renderFooter = () => (
     <CardActions disableSpacing style={{ justifyContent: "space-between" }}>
       <Button
-        variant="contained"
         color="secondary"
         startIcon={<DeleteIcon />}
         onClick={() => dismissPost({ id })}

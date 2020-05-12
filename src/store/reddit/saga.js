@@ -30,7 +30,10 @@ function* getAccessTokenWorker() {
 
 function* getTopPostsWorker(accessToken) {
   try {
-    const response = yield call(services.getTopPosts, accessToken, 50);
+    const response = yield call(services.getTopPosts, {
+      accessToken,
+      limit: 50,
+    });
     const { data } = response;
 
     return {
@@ -55,13 +58,12 @@ function* getTopPostsNextPageWorker(accessToken) {
   const after = yield select(getPostsAfterParam);
   const count = yield select(getPostCount);
   try {
-    const response = yield call(
-      services.getTopPosts,
+    const response = yield call(services.getTopPostsNextPage, {
       accessToken,
-      50,
+      limit: 50,
       after,
-      count
-    );
+      count,
+    });
     const { data } = response;
 
     return {

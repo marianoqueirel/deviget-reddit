@@ -20,9 +20,9 @@ export default {
       .catch((error) => ({ error }));
   },
 
-  getTopPosts: (accessToken, limit) => {
+  getTopPosts: ({ accessToken, limit }) => {
     return axios
-      .get(`${REDDIT_OAUTH_API_URL}?limit=${limit}`, {
+      .get(`${REDDIT_OAUTH_API_URL}/top?limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -30,10 +30,10 @@ export default {
       })
       .then((response) => response);
   },
-  getTopPostsNextPage: (accessToken, params) => {
+  getTopPostsNextPage: ({ accessToken, limit, after, count }) => {
     return axios
       .get(
-        `${REDDIT_OAUTH_API_URL}?limit=${params.limit}&after=${params.after}&count=${params.count}`,
+        `${REDDIT_OAUTH_API_URL}/top?limit=${limit}&after=${after}&count=${count}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

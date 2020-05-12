@@ -4,10 +4,12 @@ import { animated, useTransition } from "react-spring";
 import Grid from "@material-ui/core/Grid";
 import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
   useEffect(() => {
     setIsNextPageLoading(false);
+    setHasNextPage(true);
   }, [posts]);
 
   const animatedPosts = useTransition(posts, (post) => post.id, {
@@ -17,9 +19,9 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
     leave: { opacity: 0, transform: "translate3d(-100%,0,0)" },
   });
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [isNextPageLoading, setIsNextPageLoading] = useState(false);
+  const [isNextPageLoading, setIsNextPageLoading] = useState(true);
 
-  const loadNextPage = (...args) => {
+  const loadNextPage = () => {
     setIsNextPageLoading(true);
     getPostsNextPage();
   };
@@ -28,18 +30,17 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
   const isItemLoaded = (index) => !hasNextPage || index < posts.length;
 
-  const Post = ({ index, style }) => {
+  const Post = (props) => {
+    const { index, style, data } = props;
+
     let content;
     if (!isItemLoaded(index)) {
       content = "Loading...";
     } else {
       content = (
-        <Grid item xs={12} key={posts[index].id}>
-          <animated.div
-            key={posts[index].id}
-            style={animatedPosts[index].props}
-          >
-            <PostItem post={posts[index]} onSelect={onSelectPost} />
+        <Grid item xs={12}>
+          <animated.div style={animatedPosts[index].props}>
+            <PostItem post={data[index]} onSelect={onSelectPost} />
           </animated.div>
         </Grid>
       );
@@ -56,17 +57,25 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
         loadMoreItems={loadMoreItems}
       >
         {({ onItemsRendered, ref }) => (
-          <List
-            className="List"
-            height={700}
-            itemCount={itemCount}
-            itemSize={304}
-            onItemsRendered={onItemsRendered}
-            ref={ref}
-            width={"100%"}
-          >
-            {Post}
-          </List>
+          <AutoSizer disableWidth>
+            {({ height }) => (
+              <List
+                className="List"
+                height={height}
+                itemCount={itemCount}
+                itemSize={304}
+                onItemsRendered={onItemsRendered}
+                ref={ref}
+                width={"100%"}
+                itemData={posts}
+                itemKey={(index, posts) => {
+                  return posts[index] ? posts[index].id : "loading";
+                }}
+              >
+                {Post}
+              </List>
+            )}
+          </AutoSizer>
         )}
       </InfiniteLoader>
     </Fragment>
