@@ -9,6 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../../assets/images/reddit.png";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const {
@@ -31,8 +32,9 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
       }}
     >
       <div style={{ display: "flex" }}>
-        <Avatar
+        <div
           style={{
+            borderRadius: "50%",
             backgroundColor: read ? "#ccc" : "#0079d3",
             width: "1rem",
             height: "1rem",
@@ -40,7 +42,7 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
           }}
         >
           {" "}
-        </Avatar>
+        </div>
         <Typography noWrap variant="body2" color="textSecondary" component="p">
           {author}
         </Typography>
@@ -54,12 +56,49 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   );
 
   const renderBody = () => (
-    <Grid container>
-      <img alt="text " style={{ width: "100%", height: "10rem" }} src={image} />
-      <Typography noWrap variant="h6" color="textSecondary" component="p">
-        {title}
-      </Typography>
-    </Grid>
+    <div
+      style={{
+        display: "flex",
+        width: "auto",
+        marginTop: "10px",
+        height: "120px",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "40%",
+          height: "100%",
+          marginRight: "8px",
+          display: "flex",
+        }}
+      >
+        <img
+          alt="text "
+          style={{ width: "100%", height: "auto", objectFit: "contain" }}
+          src={image}
+        />
+      </div>
+      <div
+        style={{
+          width: "55%",
+          maxHeight: "calc(20.2px * 4)",
+          overflowY: "hidden",
+        }}
+      >
+        <Typography
+          style={{ textOverflow: "ellipsis" }}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {title}
+        </Typography>
+      </div>
+      <div style={{ width: "5%" }}>
+        <ArrowForwardIosIcon fontSize="small" />
+      </div>
+    </div>
   );
 
   const renderFooter = () => (
@@ -84,7 +123,7 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   );
 
   return (
-    <Card style={{ padding: "20px" }}>
+    <Card style={{ padding: "12px 16px 12px 12px" }}>
       <div
         onClick={() => {
           selectPost({ id });

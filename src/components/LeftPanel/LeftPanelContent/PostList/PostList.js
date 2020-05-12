@@ -69,7 +69,7 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
                 className="List"
                 height={height}
                 itemCount={itemCount}
-                itemSize={310}
+                itemSize={236}
                 onItemsRendered={onItemsRendered}
                 ref={ref}
                 width={"100%"}
