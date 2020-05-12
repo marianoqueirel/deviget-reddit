@@ -6,19 +6,19 @@
 
 ## Tech notes
 
+- One big tech debt is moving all inline styles to classes or css objects. I've prioritized other things.
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
-- I've used two different ways to manage async API calls just to different way to manage this flows.
+- I've used two different ways to manage async API calls just to show different ways to manage that:
   - Catching the error on the proper requests service and returns mapped objects.
   - try / catch block on the sagas generator.
-- The apps allows us for 5 seconds from we pressed on "Dismiss All Posts" to restore them. I used redux-saga solution but it could be achieve using store for preservation.
+- The apps allows us for 5 seconds since we press "Dismiss All Posts" button to restore dismissed posts. I used redux-saga solution for that but it could be achieved using redux store for data preservation.
 
 ## Tech debts and TODOs
 
-- Reuse Sagas to get posts and next page posts instead of repeat code.
-- We could abstract into one single method the axios method an reuse it on all the calls
-- SwipeableDrawer is being mounted / unmounted every time we trigger it, we can could avoid behavior to improve performance and to not lose the scroll position.
-- Use Context to avoid prop drilling for swipeable side bar functionality
-- Add loader component
+- Reuse Sagas generator to get posts and next page posts instead of repeat code.
+- We could abstract into one single method the axios engine and then reuse i.
+- SwipeableDrawer is being mounted / unmounted every time we trigger it, we can could avoid behavior to improve performance and to not lose the scroll position. The scroll position inside the SwipeableDrawer could be achieved using a method of the react-window's List.
+- Use Context to avoid prop drilling for swipeable side bar functionality (open and close)
 - Animation when dismiss all posts
 - Add unit testing
 - Error handling

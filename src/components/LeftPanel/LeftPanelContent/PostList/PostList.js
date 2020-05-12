@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect, forwardRef } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PostItem from "../PostItem";
 import { animated, useTransition } from "react-spring";
-import Grid from "@material-ui/core/Grid";
 import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -32,9 +31,7 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
   const isItemLoaded = (index) => !hasNextPage || index < posts.length;
 
-  const Post = (props) => {
-    const { index, style, data } = props;
-
+  const Post = ({ index, style, data }) => {
     let content;
     if (!isItemLoaded(index)) {
       content = (
@@ -55,19 +52,8 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
       );
     }
 
-    return <div style={{ ...style, display: "flex" }}>{content}</div>;
+    return <div style={{ ...style }}>{content}</div>;
   };
-
-  const innerElementType = forwardRef(({ style, ...rest }, ref) => (
-    <div
-      ref={ref}
-      style={{
-        ...style,
-        marginBottom: "50px",
-      }}
-      {...rest}
-    />
-  ));
 
   return (
     <Fragment>
@@ -85,7 +71,6 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
                 itemCount={itemCount}
                 itemSize={310}
                 onItemsRendered={onItemsRendered}
-                innerElementType={innerElementType}
                 ref={ref}
                 width={"100%"}
                 itemData={posts}
