@@ -9,9 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MessageIcon from "@material-ui/icons/Message";
 import redditImage from "../../../../assets/images/reddit.png";
-import BackspaceIcon from "@material-ui/icons/Backspace";
-import CloseIcon from "@material-ui/icons/Close";
-import CancelIcon from "@material-ui/icons/Cancel";
 
 const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   const {
@@ -36,7 +33,7 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
       <div style={{ display: "flex" }}>
         <Avatar
           style={{
-            backgroundColor: read ? "grey" : "blue",
+            backgroundColor: read ? "#ccc" : "#0079d3",
             width: "1rem",
             height: "1rem",
             marginRight: "1rem",
@@ -98,7 +95,6 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
         {renderHeader()}
         {renderBody()}
       </div>
-
       {renderFooter()}
     </Card>
   );

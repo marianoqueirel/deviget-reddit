@@ -6,12 +6,16 @@ import store from "./store";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssBaseline />
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </MuiThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

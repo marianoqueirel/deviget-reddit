@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PostList from "./PostList";
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import redditLogo from "../../../assets/images/reddit-logo-png-transparent.png";
 
 const LeftPanelContent = ({
   posts,
@@ -22,53 +24,58 @@ const LeftPanelContent = ({
           alignItems: "center",
         }}
       >
-        <Typography align="center">Reddit</Typography>
+        <img src={redditLogo} style={{ height: "85%" }} alt="Reddit Logo" />
       </div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <Fragment>
-          <div style={{ height: "86%", overflowY: "auto" }}>
-            {posts.length < 1 && showUndoDismissAllPosts ? (
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  alignContent: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  style={{ width: "100%" }}
-                  color="secondary"
-                  children={"5 Seconds to Undo"}
-                  onClick={undoDismissAllPosts}
-                />
-              </div>
-            ) : (
-              <PostList posts={posts} onSelectPost={onSelectPost} />
-            )}
-          </div>
-          <div
-            style={{
-              height: "7%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              // TODO add debounce
-              disabled={posts.length < 1}
-              color="secondary"
-              startIcon={<DeleteIcon />}
-              children={"Dismiss All"}
-              onClick={dismissAllPosts}
-            />
-          </div>
-        </Fragment>
-      )}
+      <Fragment>
+        <div style={{ height: "86%", overflowY: "auto" }}>
+          {loading ? (
+            <Box align="center" p={2}>
+              <CircularProgress color="secondary" />
+            </Box>
+          ) : posts.length < 1 && showUndoDismissAllPosts ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                style={{ width: "100%" }}
+                color="secondary"
+                children={"5 Seconds to Undo"}
+                onClick={undoDismissAllPosts}
+              />
+            </div>
+          ) : (
+            <PostList posts={posts} onSelectPost={onSelectPost} />
+          )}
+        </div>
+        <div
+          style={{
+            height: "7%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#ff4500",
+          }}
+        >
+          <Button
+            // TODO add debounce
+            fullWidth
+            style={{ height: "100%" }}
+            variant="contained"
+            disableElevation
+            disabled={posts.length < 1}
+            color="secondary"
+            startIcon={<DeleteIcon />}
+            children={"Dismiss All"}
+            onClick={dismissAllPosts}
+          />
+        </div>
+      </Fragment>
     </Fragment>
   );
 };

@@ -1,10 +1,12 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, forwardRef } from "react";
 import PostItem from "../PostItem";
 import { animated, useTransition } from "react-spring";
 import Grid from "@material-ui/core/Grid";
 import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
   useEffect(() => {
@@ -35,19 +37,37 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
 
     let content;
     if (!isItemLoaded(index)) {
-      content = "Loading...";
+      content = (
+        <Box align="center" p={2}>
+          <CircularProgress color="secondary" />
+        </Box>
+      );
     } else {
       content = (
-        <Grid item xs={12}>
-          <animated.div style={animatedPosts[index].props}>
-            <PostItem post={data[index]} onSelect={onSelectPost} />
-          </animated.div>
-        </Grid>
+        <animated.div
+          style={{
+            ...animatedPosts[index].props,
+            width: "100%",
+          }}
+        >
+          <PostItem post={data[index]} onSelect={onSelectPost} />
+        </animated.div>
       );
     }
 
-    return <div style={style}>{content}</div>;
+    return <div style={{ ...style, display: "flex" }}>{content}</div>;
   };
+
+  const innerElementType = forwardRef(({ style, ...rest }, ref) => (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        marginBottom: "50px",
+      }}
+      {...rest}
+    />
+  ));
 
   return (
     <Fragment>
@@ -63,8 +83,9 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
                 className="List"
                 height={height}
                 itemCount={itemCount}
-                itemSize={304}
+                itemSize={310}
                 onItemsRendered={onItemsRendered}
+                innerElementType={innerElementType}
                 ref={ref}
                 width={"100%"}
                 itemData={posts}

@@ -2,36 +2,52 @@ import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
+import Grid from "@material-ui/core/Grid";
+
 import redditImage from "../../assets/images/reddit.png";
 
 const PostDescription = ({ post }) => {
   const postSelected = Object.entries(post).length > 0;
 
   const renderPostContent = () => {
-    const { author, num_comments, thumbnail, created_utc, title } = post;
+    const { author, thumbnail, created_utc, title } = post;
     const image =
       thumbnail.substring(0, 4) === "http" ? thumbnail : redditImage;
     return (
       <Fragment>
-        {author}
-        {num_comments}
+        <Typography variant="h4"> {author}</Typography>
+        <Typography variant="h6">{created_utc}</Typography>
         <img
-          style={{ width: "15rem", height: "15rem" }}
+          style={{
+            width: "auto",
+            height: "30%",
+            marginTop: "1%",
+            marginBottom: "1%",
+          }}
           alt={`of ${author}`}
           src={image}
         />
-        {created_utc}
-        {title}
+        <Typography variant="body1">{title}</Typography>
       </Fragment>
     );
   };
 
   return (
-    <Box style={{ width: "100%", padding: "2%" }}>
+    <Box
+      style={{
+        height: "100%",
+        width: "80%",
+        padding: "2%",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        margin: "auto",
+      }}
+    >
       {postSelected ? (
         renderPostContent()
       ) : (
-        <Typography variant="h4">Post Description not yet available</Typography>
+        <Typography variant="h4">Select Post</Typography>
       )}
     </Box>
   );
