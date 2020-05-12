@@ -13,3 +13,10 @@ export const isUndoDismissAllPosts = createSelector(
   getReddit,
   (reddit) => reddit.showUndoDismissAllPosts
 );
+
+export const getPostsAfterParam = createSelector(
+  getReddit,
+  (reddit) => reddit.after
+);
+
+export const getPostCount = createSelector(getPosts, (posts) => posts.length);

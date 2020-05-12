@@ -4,12 +4,23 @@ const initialState = {
   posts: [],
   selected: {},
   showUndoDismissAllPosts: false,
+  after: "",
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.SET_POSTS:
-      return { ...state, posts: [...payload.posts] };
+      return {
+        ...state,
+        posts: [...payload.posts],
+        after: payload.after ? payload.after : state.after,
+      };
+    case actionTypes.SET_POSTS_NEXT_PAGE:
+      return {
+        ...state,
+        posts: [...state.posts, ...payload.posts],
+        after: payload.after,
+      };
     case actionTypes.DISMISS_POST:
       const { posts } = state;
       const index = posts.findIndex((post) => post.id === payload.id);
@@ -34,7 +45,7 @@ export default (state = initialState, { type, payload }) => {
       };
       return { ...state, posts: updatedPosts, selected: postSelected };
     case actionTypes.SET_DISMISS_ALL_POSTS:
-      return { ...initialState };
+      return { ...state, posts: [] };
     case actionTypes.SHOW_UNDO_DISMISS_ALL_POSTS:
       return { ...state, showUndoDismissAllPosts: payload.show };
     default:

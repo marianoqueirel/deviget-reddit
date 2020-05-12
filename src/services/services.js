@@ -20,14 +20,27 @@ export default {
       .catch((error) => ({ error }));
   },
 
-  getTopPosts: (accessToken) => {
+  getTopPosts: (accessToken, limit) => {
     return axios
-      .get(REDDIT_OAUTH_API_URL, {
+      .get(`${REDDIT_OAUTH_API_URL}?limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         timeout: 4000,
       })
+      .then((response) => response);
+  },
+  getTopPostsNextPage: (accessToken, params) => {
+    return axios
+      .get(
+        `${REDDIT_OAUTH_API_URL}?limit=${params.limit}&after=${params.after}&count=${params.count}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          timeout: 4000,
+        }
+      )
       .then((response) => response);
   },
 };

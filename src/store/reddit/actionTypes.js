@@ -9,3 +9,6 @@ export const SELECT_POST = `${domain}/SELECT_POST`;
 export const DISMISS_POST = `${domain}/DISMISS_POST`;
 export const DISMISS_ALL_POSTS = `${domain}/DISMISS_ALL_POSTS`;
 export const SET_DISMISS_ALL_POSTS = `${domain}/SET_DISMISS_ALL_POSTS`;
+export const GET_POSTS_NEXT_PAGE = `${domain}/GET_POSTS_NEXT_PAGE`;
+
+export const SET_POSTS_NEXT_PAGE = `${domain}/SET_POSTS_NEXT_PAGE`;

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import PostList from "./PostList";
+import LeftPanelContent from "./LeftPanelContent";
 import {
   dismissAllPosts,
   undoDismissAllPosts,
@@ -19,4 +19,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   dismissAllPosts,
   undoDismissAllPosts,
-})(PostList);
+})(LeftPanelContent);

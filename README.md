@@ -8,12 +8,13 @@ http://bob.xxxx
 
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
 - I've used two different ways to manage async API calls
-
   - Catching the error on the proper requests and returns mapped objects
   - try / catch block to catch the error just to different way to manage this flows.
+- The apps allows us to restore dismissed post list for 5 seconds, whit could be available for more time using state preservation.
 
-  ## Tech debts
+## Tech debts and TODOs
 
+- Use Context to avoid prop drilling for swipeable side functionality
 - Add loader component
 - Move animation of single post inside the component and add another for the whole lists
 - Add unit testing

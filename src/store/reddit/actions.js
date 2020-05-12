@@ -1,8 +1,17 @@
 import * as actionTypes from "./actionTypes";
 
-export const setPosts = ({ posts }) => ({
+export const setPosts = ({ posts, after }) => ({
   type: actionTypes.SET_POSTS,
-  payload: { posts },
+  payload: { posts, after },
+});
+
+export const getPostsNextPage = () => ({
+  type: actionTypes.GET_POSTS_NEXT_PAGE,
+});
+
+export const addPostsNextPage = ({ posts, after }) => ({
+  type: actionTypes.SET_POSTS_NEXT_PAGE,
+  payload: { posts, after },
 });
 
 export const selectPost = ({ id }) => ({

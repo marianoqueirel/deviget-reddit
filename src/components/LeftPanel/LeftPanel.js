@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
-import PostList from "./PostList";
+import LeftPanelContent from "./LeftPanelContent";
 
 const LeftPanel = () => {
   const [drawer, setDrawer] = useState(false);
@@ -28,7 +28,7 @@ const LeftPanel = () => {
           onOpen={toggleDrawer(true)}
         >
           <div style={{ width: "300px", height: "100%" }}>
-            <PostList onSelectPost={setDrawer} />
+            <LeftPanelContent onSelectPost={setDrawer} />
           </div>
         </SwipeableDrawer>
       </Hidden>
@@ -58,7 +58,7 @@ const LeftPanel = () => {
             height: "100%",
           }}
         >
-          <PostList onSelectPost={setDrawer} />
+          <LeftPanelContent onSelectPost={setDrawer} />
         </Grid>
       </Hidden>
     </Fragment>
