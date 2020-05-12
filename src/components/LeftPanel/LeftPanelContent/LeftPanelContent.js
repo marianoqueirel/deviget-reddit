@@ -26,16 +26,18 @@ const LeftPanelContent = ({
       </div>
       {loading ? (
         <div>Loading</div>
-      ) : posts.length < 1 && showUndoDismissAllPosts ? (
-        <Button
-          color="secondary"
-          children={"Undo"}
-          onClick={undoDismissAllPosts}
-        />
       ) : (
         <Fragment>
           <div style={{ height: "86%", overflowY: "auto" }}>
-            <PostList posts={posts} onSelectPost={onSelectPost} />
+            {posts.length < 1 && showUndoDismissAllPosts ? (
+              <Button
+                color="secondary"
+                children={"Undo"}
+                onClick={undoDismissAllPosts}
+              />
+            ) : (
+              <PostList posts={posts} onSelectPost={onSelectPost} />
+            )}
           </div>
           <div
             style={{
