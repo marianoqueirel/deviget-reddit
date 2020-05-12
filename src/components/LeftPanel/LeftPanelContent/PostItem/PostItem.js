@@ -123,7 +123,7 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
   );
 
   return (
-    <Card style={{ padding: "12px 16px 12px 12px" }}>
+    <Card style={{ padding: "12px 16px 12px 12px" }} elevation={3}>
       <div
         onClick={() => {
           selectPost({ id });

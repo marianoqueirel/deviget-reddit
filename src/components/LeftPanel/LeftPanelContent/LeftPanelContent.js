@@ -27,7 +27,7 @@ const LeftPanelContent = ({
         <img src={redditLogo} style={{ height: "85%" }} alt="Reddit Logo" />
       </div>
       <Fragment>
-        <div style={{ height: "88%", overflowY: "auto" }}>
+        <div style={{ height: "87%", overflowY: "auto" }}>
           {loading ? (
             <Box align="center" p={2}>
               <CircularProgress color="secondary" />
@@ -55,7 +55,7 @@ const LeftPanelContent = ({
         </div>
         <div
           style={{
-            height: "5%",
+            height: "6%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
