@@ -24,7 +24,6 @@ import { REDDIT_ACCESS_TOKEN_KEY } from "./constants";
 export function* getAccessTokenWorker() {
   const { response = null, error = null } = yield call(services.getAccessToken);
   if (response) {
-    console.log(response);
     return yield put(
       apiRequestSuccess({
         feature: "getAccessToken",
@@ -58,7 +57,6 @@ export function* getTopPostsWorker(accessToken) {
       after,
       count,
     });
-    console.log(response);
     const { data } = response;
 
     return yield put(
@@ -114,7 +112,7 @@ export function* getTopPostsFlow() {
       data: { posts, after },
     },
   } = yield call(getTopPostsWorker, accessToken);
-  console.log(posts);
+
   if (posts) {
     yield put(actions.setPosts({ posts, after }));
     yield put(setLoader(false));
