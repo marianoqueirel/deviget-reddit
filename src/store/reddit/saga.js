@@ -75,7 +75,6 @@ export function* getTopPostsWorker(accessToken) {
       const { status } = response;
       if (status === 401) {
         // IMPORTANT TODO: Here we need to add logic to just try n times this block.
-        yield delay(500);
         localStorage.removeItem(REDDIT_ACCESS_TOKEN_KEY);
         yield call(getTopPostsFlow);
       } else {

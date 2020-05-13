@@ -10,10 +10,10 @@
 - Dismiss post was implemented with react-spring
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
 - I've used two different ways to manage async API calls just to show different ways to manage that:
+
   - Catching the error on the proper requests service and returns mapped objects.
   - try / catch block on the sagas generator.
-- I have left adding event actions like GET_TOP_POST_SUCCESS so that the worker could use this action instead of returns just
-  an object without a signature or api.
+
 - The apps allows us for 5 seconds since we press "Dismiss All Posts" button to restore dismissed posts. I used redux-saga solution for that but it could be achieved using redux store for data preservation.
 - The Post Detail Component (Right Side) need to be improved, I'm not manipulating properly the image...
 

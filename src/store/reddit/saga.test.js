@@ -23,6 +23,7 @@ describe("Reddit Saga", () => {
     after: "afterMock",
   };
   const accessTokenMock = "accessTokenMock";
+
   describe("Get Access Token Worker", () => {
     const it = sagaHelper(getAccessTokenWorker());
 
