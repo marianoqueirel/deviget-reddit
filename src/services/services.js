@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CLIENT_ID, CLIENT_SECRET } from "./redditCredentials";
-import { REDDIT_API_URL, REDDIT_OAUTH_API_URL } from "./urls";
+import { REDDIT_API_URL, REDDIT_OAUTH_API_URL, TIMEOUT } from "./env";
 
 export default {
   getAccessToken: () => {
@@ -14,25 +14,26 @@ export default {
           username: CLIENT_ID,
           password: CLIENT_SECRET,
         },
-        timeout: 4000,
+        timeout: TIMEOUT,
       })
       .then((response) => ({ response }))
       .catch((error) => ({ error }));
   },
 
-  // TODO Send after and count parameters only when we have it.
   // TODO use a timeout generic unless the services needs a different one
   getTopPosts: ({ accessToken, limit, after, count }) => {
     return axios
-      .get(
-        `${REDDIT_OAUTH_API_URL}/top?limit=${limit}&after=${after}&count=${count}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          timeout: 4000,
-        }
-      )
+      .get(`${REDDIT_OAUTH_API_URL}/top?`, {
+        params: {
+          ...(limit && { limit }),
+          ...(after && { after }),
+          ...(count && { count }),
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        timeout: TIMEOUT,
+      })
       .then((response) => response);
   },
 };
