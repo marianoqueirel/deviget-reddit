@@ -116,7 +116,7 @@ describe("Reddit Saga", () => {
     });
   });
 
-  /* describe("Get Top Posts Saga  when access token does exists", () => {
+  describe("Get Top Posts Saga  when access token does exists", () => {
     const localStorageGetItemMock = jest.fn(() => accessTokenMock);
     const localStorageSetItemMock = jest.fn();
 
@@ -138,26 +138,29 @@ describe("Reddit Saga", () => {
       expect(result).toEqual(call(getTopPostsWorker, accessTokenMock));
 
       return {
-        ...postsMock,
-      };
-    });
-
-    it("should have dispatched setPosts with the posts", (result) => {
-      expect(result).toEqual(put(actions.setPosts({ ...postsMock })));
-
-      return {
-        response: {
-          status: 200,
+        payload: {
+          ...topPostsSuccessRequestMock,
         },
       };
     });
 
-    it("should have turned off loader", (result) => {
+    test("should not have called local storage set item", () => {
+      expect(localStorageSetItemMock).not.toHaveBeenCalled();
+    });
+
+    it("should have called setPost action to dispatch to the store", (result) => {
+      const {
+        data: { posts, after },
+      } = topPostsSuccessRequestMock;
+      expect(result).toEqual(put(actions.setPosts({ posts, after })));
+    });
+
+    it("should have called the mock get access token service API", (result) => {
       expect(result).toEqual(put(setLoader(false)));
     });
 
     it("should have called the mock get access token service API", (result) => {
       expect(result).toBeUndefined();
     });
-  }); */
+  });
 });
