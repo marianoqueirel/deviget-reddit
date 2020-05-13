@@ -8,6 +8,7 @@ import * as actions from "./actions";
 import { setLoader } from "../loader/actions";
 import services from "../../services/services";
 import { call, put } from "redux-saga/effects";
+// TODO This test file need more work... and more tests.
 
 jest.mock("../../services/services", () => {
   return {
