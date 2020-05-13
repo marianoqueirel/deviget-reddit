@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "redux-devtools": "^3.5.0",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga-test": "^1.0.1",
+    "redux-saga-testing": "^2.0.0"
   }
 }

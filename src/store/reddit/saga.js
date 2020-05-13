@@ -19,16 +19,17 @@ import {
 import normalizePostsData from "./normalizer";
 import { setLoader } from "../loader/actions";
 
-function* getAccessTokenWorker() {
+export function* getAccessTokenWorker() {
   const { response, error } = yield call(services.getAccessToken);
   if (response) {
+    // trigger action
     return response.data && response.data.access_token;
   } else if (error) {
     // Handle error
   }
 }
 
-function* getTopPostsWorker(accessToken) {
+export function* getTopPostsWorker(accessToken) {
   const after = yield select(getPostsAfterParam);
   const count = yield select(getPostCount);
   try {
@@ -58,9 +59,8 @@ function* getTopPostsWorker(accessToken) {
   }
 }
 
-function* getTopPostsFlow() {
+export function* getTopPostsFlow() {
   let accessToken = localStorage.getItem("REDDIT_ACCESS_TOKEN");
-
   if (!accessToken) {
     accessToken = yield call(getAccessTokenWorker);
     localStorage.setItem("REDDIT_ACCESS_TOKEN", accessToken);
@@ -74,7 +74,7 @@ function* getTopPostsFlow() {
   }
 }
 
-function* dismissAllPostsFlow() {
+export function* dismissAllPostsFlow() {
   const currentPosts = yield select(getPosts);
 
   yield put(actions.setDismissAllPosts());
