@@ -6,8 +6,8 @@
 
 ## Important notes
 
-- The Post Detail Component need to be improved, I'm not manipulating properly the image... this is something that
-  I've not finished
+- Pagination was implemented as infinite scroll
+- Dismiss post was implemented with react-spring
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
 - I've used two different ways to manage async API calls just to show different ways to manage that:
   - Catching the error on the proper requests service and returns mapped objects.
@@ -15,11 +15,12 @@
 - I have left event actions like GET_TOP_POST_SUCCESS so that the worker use this action instead of returns just
   an object without a signature or api.
 - The apps allows us for 5 seconds since we press "Dismiss All Posts" button to restore dismissed posts. I used redux-saga solution for that but it could be achieved using redux store for data preservation.
+- The Post Detail Component (Right Side) need to be improved, I'm not manipulating properly the image...
 
 ## Tech debts and TODOs
 
 - One big tech debt is moving all inline styles to classes or css objects. I've prioritized other things. We could
-  use High Order component Material UI gives su to accomplish that or use
+  use Material's techniques like High Order component that allows us to accomplish that. I'm not used material UI spacing so much, this is something we could use more.
 - I just add some unit testing for the saga file, I should add more unit testing for all the app.
 - Error handling
 - We could abstract axios into a single method then reuse it.
