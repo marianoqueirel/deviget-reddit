@@ -7,6 +7,9 @@ const initialState = {
   after: "",
 };
 
+// I've manipulated manually the arrays instead of using Array proptypes trying to keep the order of the values.
+// We could implement here some tool to prevent manipulation of the state... such us immutable or immer
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.SET_POSTS:
