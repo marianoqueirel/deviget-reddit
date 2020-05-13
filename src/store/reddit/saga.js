@@ -41,7 +41,7 @@ export function* getTopPostsWorker(accessToken) {
       count,
     });
     const { data } = response;
-
+    // TODO dispatch success action instead of returning just an object
     return {
       posts: normalizePostsData(data),
       after: data.data.after,
