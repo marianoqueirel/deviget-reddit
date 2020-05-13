@@ -20,6 +20,7 @@ import normalizePostsData from "./normalizer";
 import { setLoader } from "../loader/actions";
 import { apiRequestSuccess, apiRequestsFailure } from "../events/actions";
 import { REDDIT_ACCESS_TOKEN_KEY } from "./constants";
+import { isLoading } from "../loader/selector";
 
 export function* getAccessTokenWorker() {
   const { response = null, error = null } = yield call(services.getAccessToken);
@@ -114,7 +115,10 @@ export function* getTopPostsFlow() {
 
   if (posts) {
     yield put(actions.setPosts({ posts, after }));
-    yield put(setLoader(false));
+    if (yield select(isLoading)) {
+      // Fix me, not the better way
+      yield put(setLoader(false));
+    }
   }
 }
 

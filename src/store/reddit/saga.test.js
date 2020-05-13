@@ -4,12 +4,13 @@ import {
   getTopPostsFlow,
   getTopPostsWorker,
 } from "./saga";
-import { apiRequestSuccess, apiRequestsFailure } from "../events/actions";
+import { apiRequestSuccess } from "../events/actions";
 
 import * as actions from "./actions";
 import { setLoader } from "../loader/actions";
+import { isLoading } from "../loader/selector";
 import services from "../../services/services";
-import { call, put } from "redux-saga/effects";
+import { call, put, select } from "redux-saga/effects";
 
 // TODO This test file need more work... and more tests.
 
@@ -107,8 +108,9 @@ describe("Reddit Saga", () => {
       expect(result).toEqual(put(actions.setPosts({ posts, after })));
     });
 
-    it("should have called the mock get access token service API", (result) => {
-      expect(result).toEqual(put(setLoader(false)));
+    it("should select the current username from the state", (result) => {
+      expect(result).toEqual(select(isLoading));
+      return false;
     });
 
     it("should have called the mock get access token service API", (result) => {
@@ -153,6 +155,11 @@ describe("Reddit Saga", () => {
         data: { posts, after },
       } = topPostsSuccessRequestMock;
       expect(result).toEqual(put(actions.setPosts({ posts, after })));
+    });
+
+    it("should select the current username from the state", (result) => {
+      expect(result).toEqual(select(isLoading));
+      return true;
     });
 
     it("should have called the mock get access token service API", (result) => {
