@@ -16,8 +16,8 @@ const PostDescription = ({ post }) => {
         <Typography variant="h6">{created_utc}</Typography>
         <img
           style={{
-            width: "auto",
-            height: "30%",
+            width: "50%",
+            height: "auto",
             marginTop: "1%",
             marginBottom: "1%",
           }}

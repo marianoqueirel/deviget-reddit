@@ -4,10 +4,10 @@
 
 [GAME URL](https://mariano-deviget-reddit.herokuapp.com)
 
-## Tech notes
+## Important notes
 
-- One big tech debt is moving all inline styles to classes or css objects. I've prioritized other things. We could
-  use High Order component Material UI gives su to accomplish that or use
+- The Post Detail Component need to be improved, I'm not manipulating properly the image... this is something that
+  I've not finished
 - The APP starts the sagas automatically without triggering the initial flow from component effects.
 - I've used two different ways to manage async API calls just to show different ways to manage that:
   - Catching the error on the proper requests service and returns mapped objects.
@@ -18,6 +18,8 @@
 
 ## Tech debts and TODOs
 
+- One big tech debt is moving all inline styles to classes or css objects. I've prioritized other things. We could
+  use High Order component Material UI gives su to accomplish that or use
 - I just add some unit testing for the saga file, I should add more unit testing for all the app.
 - Error handling
 - We could abstract axios into a single method then reuse it.

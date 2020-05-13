@@ -105,7 +105,6 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
       style={{ justifyContent: "space-between", paddingLeft: "0" }}
     >
       <Button
-        //variant="outlined"
         color="secondary"
         startIcon={<DeleteIcon />}
         onClick={() => dismissPost({ id })}
