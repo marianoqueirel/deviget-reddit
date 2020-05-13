@@ -18,14 +18,15 @@ import {
 } from "./actionTypes";
 import normalizePostsData from "./normalizer";
 import { setLoader } from "../loader/actions";
+import { REDDIT_ACCESS_TOKEN_KEY } from "./constants";
 
 export function* getAccessTokenWorker() {
   const { response, error } = yield call(services.getAccessToken);
   if (response) {
-    // trigger action
+    // TODO trigger success action instead of returning just an object
     return response.data && response.data.access_token;
   } else if (error) {
-    // Handle error
+    // Dispatch Error Action
   }
 }
 
@@ -52,18 +53,19 @@ export function* getTopPostsWorker(accessToken) {
       } = error;
 
       if (status === 401) {
-        localStorage.removeItem("REDDIT_ACCESS_TOKEN");
+        localStorage.removeItem(REDDIT_ACCESS_TOKEN_KEY);
         yield call(getTopPostsFlow);
       }
+      // Dispatch Error Action
     }
   }
 }
 
 export function* getTopPostsFlow() {
-  let accessToken = localStorage.getItem("REDDIT_ACCESS_TOKEN");
+  let accessToken = localStorage.getItem(REDDIT_ACCESS_TOKEN_KEY);
   if (!accessToken) {
     accessToken = yield call(getAccessTokenWorker);
-    localStorage.setItem("REDDIT_ACCESS_TOKEN", accessToken);
+    localStorage.setItem(REDDIT_ACCESS_TOKEN_KEY, accessToken);
   }
 
   const posts = yield call(getTopPostsWorker, accessToken);
