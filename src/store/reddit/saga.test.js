@@ -18,7 +18,12 @@ jest.mock("../../services/services", () => {
   };
 });
 describe("Reddit Saga", () => {
-  describe("saga", () => {
+  const postsMock = {
+    posts: [{ author: "MJ" }, { author: "Messi" }],
+    after: "afterMock",
+  };
+  const accessTokenMock = "accessTokenMock";
+  describe("Get Access Token Worker", () => {
     const it = sagaHelper(getAccessTokenWorker());
 
     it("should have called the mock get access token service API", (result) => {
@@ -36,15 +41,13 @@ describe("Reddit Saga", () => {
   });
 
   describe("Get Top Posts Saga when access token does not exists", () => {
-    beforeAll(() => {
-      Storage.prototype.getItem = jest.fn(() => null);
-    });
+    const localStorageGetItemMock = jest.fn(() => null);
+    const localStorageSetItemMock = jest.fn(() => null);
 
-    const postsMock = {
-      posts: [{ author: "MJ" }, { author: "Messi" }],
-      after: "afterMock",
-    };
-    Storage.prototype.getItem = jest.fn(() => null);
+    beforeAll(() => {
+      Storage.prototype.getItem = localStorageGetItemMock;
+      Storage.prototype.setItem = localStorageSetItemMock;
+    });
 
     jest.mock("./saga", () => {
       return {
@@ -57,18 +60,26 @@ describe("Reddit Saga", () => {
     it("should have called getAccessTokenWorker", (result) => {
       expect(result).toEqual(call(getAccessTokenWorker));
 
-      return "accessTokenMock";
+      return accessTokenMock;
     });
 
-    it("should have called the mock get access token service API", (result) => {
-      expect(result).toEqual(call(getTopPostsWorker, "accessTokenMock"));
+    test("should have called local storage get item", () => {
+      expect(localStorageGetItemMock).toHaveBeenCalled();
+    });
+
+    it("should have called the getTopPostsWorker method", (result) => {
+      expect(result).toEqual(call(getTopPostsWorker, accessTokenMock));
 
       return {
         ...postsMock,
       };
     });
 
-    it("should have called the mock get access token service API", (result) => {
+    test("should have called local storage set item", () => {
+      expect(localStorageSetItemMock).toHaveBeenCalled();
+    });
+
+    it("should have called setPost action to dispatch to the store", (result) => {
       expect(result).toEqual(put(actions.setPosts({ ...postsMock })));
 
       return {
@@ -88,12 +99,12 @@ describe("Reddit Saga", () => {
   });
 
   describe("Get Top Posts Saga  when access token does exists", () => {
-    const postsMock = {
-      posts: [{ author: "MJ" }, { author: "Messi" }],
-      after: "afterMock",
-    };
+    const localStorageGetItemMock = jest.fn(() => accessTokenMock);
+    const localStorageSetItemMock = jest.fn();
+
     beforeAll(() => {
-      Storage.prototype.getItem = jest.fn(() => "accessTokenMock");
+      Storage.prototype.getItem = localStorageGetItemMock;
+      Storage.prototype.setItem = localStorageSetItemMock;
     });
 
     jest.mock("./saga", () => {
@@ -105,15 +116,15 @@ describe("Reddit Saga", () => {
 
     const it = sagaHelper(getTopPostsFlow());
 
-    it("should have called the mock get access token service API", (result) => {
-      expect(result).toEqual(call(getTopPostsWorker, "accessTokenMock"));
+    it("should have called getTopPostsWorker method", (result) => {
+      expect(result).toEqual(call(getTopPostsWorker, accessTokenMock));
 
       return {
         ...postsMock,
       };
     });
 
-    it("should have called the mock get access token service API", (result) => {
+    it("should have dispatched setPosts with the posts", (result) => {
       expect(result).toEqual(put(actions.setPosts({ ...postsMock })));
 
       return {
@@ -123,7 +134,7 @@ describe("Reddit Saga", () => {
       };
     });
 
-    it("should have called the mock get access token service API", (result) => {
+    it("should have turned off loader", (result) => {
       expect(result).toEqual(put(setLoader(false)));
     });
 
