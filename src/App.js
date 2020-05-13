@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Grid container className={classes.container}>
       <LeftPanel />
-      <Grid item xs={11} md={8} lg={9} style={{ justifyContent: "center" }}>
+      <Grid item xs={10} md={8} lg={9} style={{ justifyContent: "center" }}>
         <PostDescription />
       </Grid>
     </Grid>

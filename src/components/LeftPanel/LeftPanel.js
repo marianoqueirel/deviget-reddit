@@ -35,7 +35,7 @@ const LeftPanel = () => {
       <Hidden mdUp>
         <Grid
           item
-          xs={1}
+          xs={2}
           style={{
             height: "60px",
             display: "flex",
