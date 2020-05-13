@@ -18,15 +18,33 @@ import {
 } from "./actionTypes";
 import normalizePostsData from "./normalizer";
 import { setLoader } from "../loader/actions";
+import { apiRequestSuccess, apiRequestsFailure } from "../events/actions";
 import { REDDIT_ACCESS_TOKEN_KEY } from "./constants";
 
 export function* getAccessTokenWorker() {
-  const { response, error } = yield call(services.getAccessToken);
+  const { response = null, error = null } = yield call(services.getAccessToken);
   if (response) {
-    // TODO trigger success action instead of returning just an object
-    return response.data && response.data.access_token;
+    console.log(response);
+    return yield put(
+      apiRequestSuccess({
+        feature: "getAccessToken",
+        ...response,
+      })
+    );
   } else if (error) {
-    // Dispatch Error Action
+    if (error.response) {
+      const { response } = error;
+      yield put(
+        apiRequestsFailure({
+          feature: "getAccessToken",
+          ...response,
+        })
+      );
+    } else if (error.request) {
+      // HANDLING BAD REQUESTS ERRORS
+    } else {
+      // HANDLING OTHER KIND OF ERRORS
+    }
   }
 }
 
@@ -40,24 +58,40 @@ export function* getTopPostsWorker(accessToken) {
       after,
       count,
     });
+    console.log(response);
     const { data } = response;
-    // TODO dispatch success action instead of returning just an object
-    return {
-      posts: normalizePostsData(data),
-      after: data.data.after,
-    };
-  } catch (error) {
-    if (error) {
-      const {
-        response: { status },
-      } = error;
 
+    return yield put(
+      apiRequestSuccess({
+        feature: "getTopPosts",
+        ...response,
+        data: {
+          posts: normalizePostsData(data),
+          after: data.data.after,
+        },
+      })
+    );
+  } catch (error) {
+    if (error.response) {
+      const { response } = error;
+      const { status } = response;
       if (status === 401) {
         // IMPORTANT TODO: Here we need to add logic to just try n times this block.
+        yield delay(500);
         localStorage.removeItem(REDDIT_ACCESS_TOKEN_KEY);
         yield call(getTopPostsFlow);
+      } else {
+        yield put(
+          apiRequestsFailure({
+            feature: "getTopPosts",
+            ...response,
+          })
+        );
       }
-      // Dispatch Error Action
+    } else if (error.request) {
+      // HANDLING BAD REQUESTS ERRORS
+    } else {
+      // HANDLING OTHER KIND OF ERRORS
     }
   }
 }
@@ -65,14 +99,24 @@ export function* getTopPostsWorker(accessToken) {
 export function* getTopPostsFlow() {
   let accessToken = localStorage.getItem(REDDIT_ACCESS_TOKEN_KEY);
   if (!accessToken) {
-    accessToken = yield call(getAccessTokenWorker);
+    const {
+      payload: {
+        data: { access_token },
+      },
+    } = yield call(getAccessTokenWorker);
+    accessToken = access_token;
+
     localStorage.setItem(REDDIT_ACCESS_TOKEN_KEY, accessToken);
   }
 
-  const posts = yield call(getTopPostsWorker, accessToken);
-
+  const {
+    payload: {
+      data: { posts, after },
+    },
+  } = yield call(getTopPostsWorker, accessToken);
+  console.log(posts);
   if (posts) {
-    yield put(actions.setPosts({ posts: posts.posts, after: posts.after }));
+    yield put(actions.setPosts({ posts, after }));
     yield put(setLoader(false));
   }
 }
