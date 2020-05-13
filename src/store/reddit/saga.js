@@ -53,6 +53,7 @@ export function* getTopPostsWorker(accessToken) {
       } = error;
 
       if (status === 401) {
+        // IMPORTANT TODO: Here we need to add logic to just try n times this block.
         localStorage.removeItem(REDDIT_ACCESS_TOKEN_KEY);
         yield call(getTopPostsFlow);
       }
