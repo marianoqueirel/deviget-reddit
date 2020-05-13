@@ -20,17 +20,9 @@ export default {
       .catch((error) => ({ error }));
   },
 
-  getTopPosts: ({ accessToken, limit }) => {
-    return axios
-      .get(`${REDDIT_OAUTH_API_URL}/top?limit=${limit}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        timeout: 4000,
-      })
-      .then((response) => response);
-  },
-  getTopPostsNextPage: ({ accessToken, limit, after, count }) => {
+  // TODO Send after and count parameters only when we have it.
+  // TODO use a timeout generic unless the services needs a different one
+  getTopPosts: ({ accessToken, limit, after, count }) => {
     return axios
       .get(
         `${REDDIT_OAUTH_API_URL}/top?limit=${limit}&after=${after}&count=${count}`,

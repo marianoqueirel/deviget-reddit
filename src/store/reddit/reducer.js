@@ -12,14 +12,8 @@ export default (state = initialState, { type, payload }) => {
     case actionTypes.SET_POSTS:
       return {
         ...state,
-        posts: [...payload.posts],
-        after: payload.after ? payload.after : state.after,
-      };
-    case actionTypes.SET_POSTS_NEXT_PAGE:
-      return {
-        ...state,
         posts: [...state.posts, ...payload.posts],
-        after: payload.after,
+        after: payload.after ? payload.after : state.after,
       };
     case actionTypes.DISMISS_POST:
       const { posts } = state;

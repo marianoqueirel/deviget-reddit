@@ -29,36 +29,10 @@ function* getAccessTokenWorker() {
 }
 
 function* getTopPostsWorker(accessToken) {
-  try {
-    const response = yield call(services.getTopPosts, {
-      accessToken,
-      limit: 50,
-    });
-    const { data } = response;
-
-    return {
-      posts: normalizePostsData(data),
-      after: data.data.after,
-    };
-  } catch (error) {
-    if (error) {
-      const {
-        response: { status },
-      } = error;
-
-      if (status === 401) {
-        localStorage.removeItem("REDDIT_ACCESS_TOKEN");
-        yield call(getTopPostsFlow);
-      }
-    }
-  }
-}
-
-function* getTopPostsNextPageWorker(accessToken) {
   const after = yield select(getPostsAfterParam);
   const count = yield select(getPostCount);
   try {
-    const response = yield call(services.getTopPostsNextPage, {
+    const response = yield call(services.getTopPosts, {
       accessToken,
       limit: 50,
       after,
@@ -78,26 +52,9 @@ function* getTopPostsNextPageWorker(accessToken) {
 
       if (status === 401) {
         localStorage.removeItem("REDDIT_ACCESS_TOKEN");
-        yield call(getTopPostsNextPageWorker);
+        yield call(getTopPostsFlow);
       }
     }
-  }
-}
-
-function* getPostsNextPageFlow() {
-  let accessToken = localStorage.getItem("REDDIT_ACCESS_TOKEN");
-
-  if (!accessToken) {
-    accessToken = yield call(getAccessTokenWorker);
-    localStorage.setItem("REDDIT_ACCESS_TOKEN", accessToken);
-  }
-
-  const posts = yield call(getTopPostsNextPageWorker, accessToken);
-
-  if (posts) {
-    yield put(
-      actions.addPostsNextPage({ posts: posts.posts, after: posts.after })
-    );
   }
 }
 
@@ -139,6 +96,6 @@ export default function* redditSaga() {
   yield all([
     getTopPostsFlow(),
     yield takeLatest(DISMISS_ALL_POSTS, dismissAllPostsFlow),
-    yield takeLatest(GET_POSTS_NEXT_PAGE, getPostsNextPageFlow),
+    yield takeLatest(GET_POSTS_NEXT_PAGE, getTopPostsFlow),
   ]);
 }

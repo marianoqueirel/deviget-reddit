@@ -9,11 +9,6 @@ export const getPostsNextPage = () => ({
   type: actionTypes.GET_POSTS_NEXT_PAGE,
 });
 
-export const addPostsNextPage = ({ posts, after }) => ({
-  type: actionTypes.SET_POSTS_NEXT_PAGE,
-  payload: { posts, after },
-});
-
 export const selectPost = ({ id }) => ({
   type: actionTypes.SELECT_POST,
   payload: { id },
