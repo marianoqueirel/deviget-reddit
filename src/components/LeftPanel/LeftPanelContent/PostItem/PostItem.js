@@ -94,21 +94,25 @@ const PostItem = ({ post, dismissPost, selectPost, onSelect }) => {
         </Typography>
       </div>
       <div style={{ width: "5%" }}>
-        <ArrowForwardIosIcon fontSize="small" />
+        <ArrowForwardIosIcon fontSize="small" color="secondary" />
       </div>
     </div>
   );
 
   const renderFooter = () => (
-    <CardActions disableSpacing style={{ justifyContent: "space-between" }}>
+    <CardActions
+      disableSpacing
+      style={{ justifyContent: "space-between", paddingLeft: "0" }}
+    >
       <Button
+        //variant="outlined"
         color="secondary"
         startIcon={<DeleteIcon />}
         onClick={() => dismissPost({ id })}
         children={"Dismiss Post"}
       />
       <Badge
-        color="secondary"
+        color="primary"
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
