@@ -33,18 +33,31 @@ const PostDescription = ({ post }) => {
     <Box
       style={{
         height: "100%",
-        width: "80%",
+        width: "90%",
         padding: "2%",
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
         margin: "auto",
+        paddingTop: "12px",
       }}
     >
       {postSelected ? (
         renderPostContent()
       ) : (
-        <Typography variant="h4">Select Post</Typography>
+        <Fragment>
+          <Typography variant="h4">Welcome</Typography>
+          <Typography variant="h5">Select Post</Typography>
+          <img
+            style={{
+              width: "50%",
+              height: "auto",
+              marginTop: "10px",
+            }}
+            alt={"Reddit Main Image"}
+            src={redditImage}
+          />
+        </Fragment>
       )}
     </Box>
   );
