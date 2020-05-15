@@ -29,18 +29,20 @@ const LeftPanelContent = ({
       <Fragment>
         <div style={{ height: "87%", overflowY: "auto" }}>
           {loading ? (
-            <Box align="center" p={2}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height="100%"
+            >
               <CircularProgress color="secondary" />
             </Box>
           ) : posts.length < 1 && showUndoDismissAllPosts ? (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
+            <Box
+              display="flex"
+              alignContent="center"
+              justifyContent="center"
+              height="100%"
             >
               <Button
                 style={{ width: "100%" }}
@@ -48,7 +50,7 @@ const LeftPanelContent = ({
                 children={"5 Seconds to Undo"}
                 onClick={undoDismissAllPosts}
               />
-            </div>
+            </Box>
           ) : (
             <PostList posts={posts} onSelectPost={onSelectPost} />
           )}

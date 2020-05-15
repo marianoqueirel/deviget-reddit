@@ -35,7 +35,12 @@ const PostList = ({ onSelectPost, posts, getPostsNextPage }) => {
     let content;
     if (!isItemLoaded(index)) {
       content = (
-        <Box align="center" p={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
           <CircularProgress color="secondary" />
         </Box>
       );
