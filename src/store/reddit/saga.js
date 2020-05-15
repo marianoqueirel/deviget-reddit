@@ -97,23 +97,29 @@ export function* getTopPostsWorker(accessToken) {
 export function* getTopPostsFlow() {
   let accessToken = localStorage.getItem(REDDIT_ACCESS_TOKEN_KEY);
   if (!accessToken) {
-    const {
-      payload: {
-        data: { access_token },
-      },
-    } = yield call(getAccessTokenWorker);
-    accessToken = access_token;
+    const response = yield call(getAccessTokenWorker);
 
-    localStorage.setItem(REDDIT_ACCESS_TOKEN_KEY, accessToken);
+    if (response) {
+      const {
+        payload: {
+          data: { access_token },
+        },
+      } = response;
+
+      accessToken = access_token;
+
+      localStorage.setItem(REDDIT_ACCESS_TOKEN_KEY, accessToken);
+    }
   }
 
-  const {
-    payload: {
-      data: { posts, after },
-    },
-  } = yield call(getTopPostsWorker, accessToken);
+  const response = yield call(getTopPostsWorker, accessToken);
 
-  if (posts) {
+  if (response) {
+    const {
+      payload: {
+        data: { posts, after },
+      },
+    } = response;
     yield put(actions.setPosts({ posts, after }));
     if (yield select(isLoading)) {
       // Fix me, not the better way
