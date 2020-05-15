@@ -22,7 +22,6 @@ const LeftPanelContent = ({
           height: "7%",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
         }}
       >
         <img src={redditLogo} style={{ height: "85%" }} alt="Reddit Logo" />
