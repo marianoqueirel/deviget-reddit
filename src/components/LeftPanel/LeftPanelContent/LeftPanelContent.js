@@ -5,6 +5,7 @@ import PostList from "./PostList";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import redditLogo from "../../../assets/images/reddit-logo-png-transparent.png";
+import UndoIcon from "@material-ui/icons/Undo";
 
 const LeftPanelContent = ({
   posts,
@@ -47,6 +48,7 @@ const LeftPanelContent = ({
               <Button
                 style={{ width: "100%" }}
                 color="secondary"
+                startIcon={<UndoIcon />}
                 children={"5 Seconds to Undo"}
                 onClick={undoDismissAllPosts}
               />
